@@ -1,0 +1,54 @@
+
+
+// File name: oop_010.cpp
+// Purpose: friend function (non-member function)
+// Written by Mike Chien
+// Last modeifed: 2011.05.19.(4)
+
+#include <iostream>
+#include <cstdlib>
+#include <cmath>
+
+using namespace std;
+
+
+class Point2D       // Version 1.0
+{
+    private:        // Private area
+        double x, y;    // x and y coordinates of a point on xy-plane
+    public:       // Public area
+        // Constructor with default values
+        Point2D( double xx = 0.0, double yy = 0.0 ) { x = xx; y = yy; }      
+// or   Point2D( double xx = 0.0, double yy = 0.0 ): x(xx), y(yy) {}        
+        double get_x() { return x; }
+        double get_y() { return y; }    
+        bool is_origin() { return ((x == 0.0) && (y == 0.0)); }
+        friend double dist(Point2D p1, Point2D p2);
+};
+
+double dist(Point2D p1, Point2D p2)
+{
+    double dx = p2.x - p1.x;   // can access class's member data directly
+    double dy = p2.y - p1.y;   // can access class's member data directly
+    return sqrt(dx * dx + dy * dy);       
+}
+
+
+int main()
+{
+    Point2D p1(1.0, 2.0), p2(3.0, 4.0), p3(5.0), p4; // p3, p4 use default values //1.0, 2.0
+    
+    cout << "p1 與 p2 的距離 = " << dist(p1, p2) << endl;  
+    cout << "p2 與 p3 的距離 = " << dist(p2, p3) << endl;  
+
+    system( "pause" );
+    return 0;
+}
+
+
+// ----- output -----
+/*
+p1 與 p2 的距離 = 2.82843
+p2 與 p3 的距離 = 4.47214
+請按任意鍵繼續 . . .
+*/
